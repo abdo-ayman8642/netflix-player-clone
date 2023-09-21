@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Netflix Video</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <style>
+      /* Additional CSS styles for positioning */
+      .icon-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        z-index: 999; /* Adjust the z-index as needed */
+      }
+      .icon-container * {
+        fill: white;
+        stroke: white;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        transform: scale(0.9);
+        transition: all 0.2s ease-in-out;
+        background: none;
+        outline: none;
+        box-shadow: none;
+        border: none;
+        width: 4vw;
+        height: 4vw;
+        min-width: 40px;
+        min-height: 40px;
+
+        cursor: pointer;
+      }
+      .icon-container:hover * {
+        opacity: 1;
+        transform: scale(1);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span id="closePopup" class="close">&times;</span>
+        <h2>Wish to Continue?</h2>
+        <p>Do you want to watch from last point</p>
+        <button id="continue-yes">Yes</button>
+        <button id="continue-no">No</button>
+      </div>
+    </div>
+    <div id="overlay" class="overlay"></div>
+    <div class="video-container">
+      <!-- <video src="bbb.mp4"></video> -->
+      <div class="icon-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="50"
+          height="50"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 11.5L12 6l1.41 1.41L9.83 11H20v2H9.83l3.58 3.59L12 18l-5-5.5z"
+          />
+        </svg>
+      </div>
+      <video
+        src="https://moviesta-data.com/index.php?video=Series/The.Wheel.of.Time/S01/%5BMovieSta%5DThe.Wheel.of.Time.S01E01.mp4&token=1694944687&q=720"
+        autoplay
+      ></video>
+      <div class="controls-container">
+        <div class="progress-controls">
+          <div class="progress-bar">
+            <div class="watched-bar"></div>
+            <div class="playhead"></div>
+          </div>
+          <div class="time-remaining">00:00</div>
+        </div>
+        <div class="controls">
+          <button class="play-pause">
+            <svg
+              class="playing"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <svg class="paused" viewBox="0 0 24 24">
+              <rect x="6" y="4" width="4" height="16"></rect>
+              <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+          </button>
+          <button class="rewind">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="#ffffff"
+                d="M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3M10,12V22H8V14H6V12H10M18,14V20C18,21.11 17.11,22 16,22H14A2,2 0 0,1 12,20V14A2,2 0 0,1 14,12H16C17.11,12 18,12.9 18,14M14,14V20H16V14H14Z"
+              />
+            </svg>
+          </button>
+          <button class="fast-forward">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="#ffffff"
+                d="M10,12V22H8V14H6V12H10M18,14V20C18,21.11 17.11,22 16,22H14A2,2 0 0,1 12,20V14A2,2 0 0,1 14,12H16C17.11,12 18,12.9 18,14M14,14V20H16V14H14M11.5,3C14.15,3 16.55,4 18.4,5.6L21,3V10H14L16.62,7.38C15.23,6.22 13.46,5.5 11.5,5.5C7.96,5.5 4.95,7.81 3.9,11L1.53,10.22C2.92,6.03 6.85,3 11.5,3Z"
+              />
+            </svg>
+          </button>
+          <button class="volume">
+            <svg class="full-volume" viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path
+                d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"
+              ></path>
+            </svg>
+            <svg class="muted" viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </button>
+          <input type="range" id="volume-bar" min="0" max="1" step="0.1" />
+          <p class="title">
+            <span class="series">wheel of time</span>
+            <span class="episode">episode 1</span>
+          </p>
+
+          <button class="next">
+            <svg viewBox="0 0 24 24">
+              <polygon points="5 4 15 12 5 20 5 4"></polygon>
+              <line x1="19" y1="5" x2="19" y2="19"></line>
+            </svg>
+          </button>
+          <button class="episodes">
+            <svg viewBox="0 0 24 24">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </button>
+
+          <button class="full-screen">
+            <svg class="maximize" viewBox="0 0 24 24">
+              <path
+                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+              ></path>
+            </svg>
+            <svg class="minimize" viewBox="0 0 24 24">
+              <path
+                d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
