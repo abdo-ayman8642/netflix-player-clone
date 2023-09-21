@@ -1,7 +1,9 @@
 // Constants -----------------------------------------------------------------------------------------------------------------
-const CURRENT_TIME = 467;
-const INTRO_TIME = [100, 280];
-const INTO_NEXT_SHOW = 1000;
+
+//time is in seconds
+const CURRENT_TIME = null;
+const INTRO_TIME = null; // array where first element is beggining of intro and second element is end of intro ex: [100, 280]
+const INTO_NEXT_SHOW = null;
 
 const videoContainer = document.querySelector(".video-container");
 const video = document.querySelector(".video-container video");
@@ -126,7 +128,7 @@ const showSkipIntro = () => {
 };
 
 const showIntoNext = () => {
-  showIntoNextButton.style.display = "block";
+  goNextButton.style.display = "block";
 };
 
 //Event Listeners ----------------------------------------------------------------------------------------------------------
@@ -228,6 +230,7 @@ video.addEventListener("timeupdate", () => {
 
   //choose when we display skip intro button
   if (INTRO_TIME[0] && INTRO_TIME[1]) {
+    //if we are in the intro show this button
     if (
       video.currentTime >= INTRO_TIME[0] &&
       video.currentTime <= INTRO_TIME[1]
@@ -292,6 +295,12 @@ fullScreenButton.addEventListener("click", toggleFullScreen);
 
 skipIntroButton.addEventListener("click", (e) => {
   e.preventDefault();
-  video.currentTime = INTRO_TIME[1] - 2;
+  video.currentTime = INTRO_TIME[1] - 2; // go to end of intro and continue watching
   closeSkipIntro();
+});
+
+goNextButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  // we do our logic here for navigating to the next video
+  goNextButton.style.display = "none"; // hide the  button
 });
