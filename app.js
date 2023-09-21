@@ -1,6 +1,12 @@
+// Constants -----------------------------------------------------------------------------------------------------------------
+const CURRENT_TIME = 467;
+const INTRO_TIME = [100, 280];
+const INTO_NEXT_SHOW = 1000;
+
 const videoContainer = document.querySelector(".video-container");
 const video = document.querySelector(".video-container video");
 video.volume = 0.5;
+const volumeBar = document.getElementById("volume-bar");
 
 const controlsContainer = document.querySelector(
   ".video-container .controls-container"
@@ -29,6 +35,8 @@ const mutedButton = volumeButton.querySelector(".muted");
 const maximizeButton = fullScreenButton.querySelector(".maximize");
 const minimizeButton = fullScreenButton.querySelector(".minimize");
 const rangeVolume = document.querySelector("#volume-bar");
+const skipIntroButton = document.querySelector("#skipIntroButton");
+const goNextButton = document.querySelector("#goNextButton");
 
 const progressBar = document.querySelector(
   ".video-container .progress-controls .progress-bar"
@@ -53,37 +61,17 @@ const overlay = document.getElementById("overlay");
 const noButton = document.getElementById("continue-no");
 const yesButton = document.getElementById("continue-yes");
 
-// check if video is closed between
-window.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("videoTime")) {
-    if (localStorage.getItem("videoTime") > 100) {
-      showPopup();
-    }
-  }
-});
+// Functions--------------------------------------------------------------------------------------------------------------------
 
 const showPopup = () => {
   popup.style.display = "block";
   overlay.style.display = "block";
 };
+
 const closePopup = () => {
   popup.style.display = "none";
   overlay.style.display = "none";
 };
-closePopupButton.addEventListener("click", function () {
-  closePopup();
-});
-noButton.addEventListener("click", () => {
-  closePopup();
-  video.play();
-});
-yesButton.addEventListener("click", () => {
-  closePopup();
-  video.currentTime = localStorage.getItem("videoTime") - 30;
-});
-overlay.addEventListener("click", function () {
-  closePopup();
-});
 
 const displayControls = () => {
   controlsContainer.style.opacity = "1";
@@ -122,8 +110,6 @@ const toggleMute = () => {
   }
 };
 
-const volumeBar = document.getElementById("volume-bar");
-
 const toggleFullScreen = () => {
   if (!document.fullscreenElement) {
     videoContainer.requestFullscreen();
@@ -131,6 +117,39 @@ const toggleFullScreen = () => {
     document.exitFullscreen();
   }
 };
+const closeSkipIntro = () => {
+  skipIntroButton.style.display = "none";
+};
+
+const showSkipIntro = () => {
+  skipIntroButton.style.display = "block";
+};
+
+const showIntoNext = () => {
+  showIntoNextButton.style.display = "block";
+};
+
+//Event Listeners ----------------------------------------------------------------------------------------------------------
+
+// check if video is inturubtted
+window.addEventListener("DOMContentLoaded", () => {
+  CURRENT_TIME && showPopup();
+});
+
+closePopupButton.addEventListener("click", function () {
+  closePopup();
+});
+noButton.addEventListener("click", () => {
+  closePopup();
+  video.play();
+});
+yesButton.addEventListener("click", () => {
+  closePopup();
+  video.currentTime = CURRENT_TIME - 30;
+});
+overlay.addEventListener("click", function () {
+  closePopup();
+});
 
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
@@ -142,16 +161,12 @@ document.addEventListener("fullscreenchange", () => {
   }
 });
 
-window.addEventListener("beforeunload", (e) => {
-  e.preventDefault();
-  if (localStorage.getItem("videoTime") === null) {
-    // Step 2: If it does not exist, create the key with the desired value
-    localStorage.setItem("videoTime", video.currentTime);
-  }
-  alert("Are you sure you want to close this window?");
-  localStorage.setItem("videoTime", video.currentTime);
-  e.returnValue = "";
-});
+// window.addEventListener("beforeunload", (e) => {
+
+//   alert("Are you sure you want to close this window?");
+//   // set the current time where video is inturubted
+//   e.returnValue = "";
+// });
 
 backButton.addEventListener("click", (e) => {
   e.preventDefault();
@@ -204,12 +219,27 @@ document.addEventListener("mousemove", () => {
 
 video.addEventListener("timeupdate", () => {
   watchedBar.style.width = (video.currentTime / video.duration) * 100 + "%";
-  // TODO: calculate hours as well...
+
   const totalSecondsRemaining = video.duration - video.currentTime;
-  // THANK YOU: BEGANOVICH
+
   const time = new Date(null);
   time.setSeconds(totalSecondsRemaining);
   let hours = null;
+
+  //choose when we display skip intro button
+  if (INTRO_TIME[0] && INTRO_TIME[1]) {
+    if (
+      video.currentTime >= INTRO_TIME[0] &&
+      video.currentTime <= INTRO_TIME[1]
+    )
+      showSkipIntro();
+    else closeSkipIntro();
+  }
+
+  //choose when we display into next button
+  if (INTO_NEXT_SHOW) {
+    if (video.currentTime >= INTO_NEXT_SHOW) showIntoNext();
+  }
 
   if (totalSecondsRemaining >= 3600) {
     hours = time.getHours().toString().padStart("2", "0");
@@ -259,3 +289,9 @@ video.addEventListener("click", function () {
 volumeButton.addEventListener("click", toggleMute);
 
 fullScreenButton.addEventListener("click", toggleFullScreen);
+
+skipIntroButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  video.currentTime = INTRO_TIME[1] - 2;
+  closeSkipIntro();
+});
