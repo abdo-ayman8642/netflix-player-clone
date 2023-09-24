@@ -359,7 +359,9 @@ goNextButton.addEventListener("click", (e) => {
 });
 
 progressBar.addEventListener("mousemove", (e) => {
-  const { offsetX, target } = e;
+  let { offsetX, target } = e;
+  if (target.className === "playhead") return;
+  if (target.className === "watched-bar") target = target.parentNode;
   const { offsetWidth } = target;
   const hoverTimeWidth = hoverTime.offsetWidth;
   const currentTime = (offsetX / offsetWidth) * video.duration;
