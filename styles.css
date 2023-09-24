@@ -48,13 +48,23 @@ body {
 }
 
 .video-container .progress-controls .progress-bar {
-  width: 90vw;
+  position: relative;
+  width: 85vw;
   height: 1vw;
   max-height: 7px;
   background: #5b5b5b;
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+#hover-time {
+  position: absolute;
+  top: -30px;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  display: none;
 }
 
 .video-container .progress-controls .progress-bar .watched-bar,
@@ -167,8 +177,6 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  background-color: white;
-  padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -193,40 +201,48 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
 }
+.help_buttons_container{
+  position: relative;
+}
 #skipIntroButton {
   display: none;
-  position: fixed;
-  bottom: 25%;
+  position: absolute;
+  border-radius: 6%;
+  bottom: 1rem;
   left: 5%;
-  background-color: #007bff;
+  background-color: #e50914;
   color: #fff;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 20px;
   cursor: pointer;
   z-index: 999;
+  font-size: 16px;
+            transition: background-color 0.3s ease;
 }
 
 /* Style the button on hover */
 #skipIntroButton:hover {
-  background-color: #0056b3;
+  background-color: #ff3d33; /* Change color on hover */
 }
 
 #goNextButton {
   display: none;
-  position: fixed;
-  bottom: 25%;
+  position: absolute;
+  border-radius: 6%;
+  bottom: 1rem;
   right: 5%;
-  background-color: #007bff;
+  background-color: #e50914;
   color: #fff;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 20px;
   cursor: pointer;
+  font-size: 16px;
   z-index: 999;
 }
 
 /* Style the button on hover */
 #goNextButton:hover {
-  background-color: #0056b3;
+  background-color: #ff3d33; /* Change color on hover */
 }
 .icon-container {
   position: fixed;
@@ -261,4 +277,337 @@ body {
   opacity: 1;
   transform: scale(1);
   cursor: pointer;
+}
+a,
+a:link {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+a:focus {
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+.action-button {
+  background-color: #e50914;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+/* box */
+.box {
+  border-radius:5%;
+  grid-template-columns: auto minmax(0,100vh) auto;
+  width: 30%;
+  min-height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.box:not(:first-child) {
+  height: 45rem;
+}
+
+.box__title {
+  font-size: 10rem;
+  font-weight: normal;
+  letter-spacing: .8rem;
+  margin-bottom: 2.6rem;
+}
+
+.box__title::first-letter {
+  color: var(--primary);
+}
+
+.box__p,
+.box__info,
+.box__note {
+  font-size: 1.6rem;
+}
+
+.box__info {
+}
+
+.box__note {
+  line-height: 2;
+}
+
+
+/* modal */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+}
+
+/* using :target */
+/*
+when users will click/enter button(link) browser will add a #id in a url and when that happens we'll show our users the modal that contains that id.
+*/
+.modal-container:target {
+  display: flex;
+}
+
+.modal {
+  border-radius: .8rem;
+  padding: 10px;
+  color: var(--light);
+  background-color: #141414;
+            color: #fff;
+  box-shadow: var(--m-shadow, .4rem .4rem 10.2rem .2rem) var(--shadow-1);
+  position: relative;
+
+  overflow: hidden;
+}
+
+.modal__title {
+  font-size: 2.2rem;
+}
+
+.modal__text {
+  padding: 0 4rem;
+  margin-top: 4rem;
+
+  font-size: 1.6rem;
+  line-height: 2;
+}
+
+.modal__btn {
+  margin-top: 4rem;
+  padding: 1rem 1.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 100rem;
+
+  color: inherit;
+  background: transparent;
+  font-size: 1.4rem;
+  font-family: inherit;
+  letter-spacing: .2rem;
+
+  transition: .2s;
+  cursor: pointer;
+}
+
+.modal__btn:nth-of-type(1) {
+  margin-right: 1rem;
+}
+
+.modal__btn:hover,
+.modal__btn:focus {
+  background: var(--focus);
+  border-color: var(--focus);
+  transform: translateY(-.2rem);
+}
+
+
+/* link-... */
+.link-1 {
+  font-size: 1.8rem;
+
+  color: var(--light);
+  background: var(--background);
+  box-shadow: .4rem .4rem 2.4rem .2rem var(--shadow-1);
+  border-radius: 100rem;
+  padding: 0.4rem 1.2rem;
+
+  transition: .2s;
+}
+
+.link-1:hover,
+.link-1:focus {
+  transform: translateY(-.2rem);
+  box-shadow: 0 0 4.4rem .2rem var(--shadow-2);
+}
+
+.link-1:focus {
+  box-shadow:
+    0 0 4.4rem .2rem var(--shadow-2),
+    0 0 0 .4rem var(--global-background),
+    0 0 0 .5rem var(--focus);
+}
+
+.link-2 {
+  font-size: 1.8rem;
+
+  color: var(--light);
+  background: var(--background);
+  box-shadow: .4rem .4rem 2.4rem .2rem var(--shadow-1);
+  border-radius: 100rem;
+  padding: 0.4rem 1.2rem;
+
+  transition: .2s;
+}
+
+.link-2::before {
+  content: '×';
+
+  transform: translateY(-.1rem);
+}
+
+.link-2:hover,
+.link-2:focus {
+  background: var(--focus);
+  border-color: var(--focus);
+  transform: translateY(-.2rem);
+}
+
+.abs-site-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: hsla(0, 0%, 1000%, .6);
+  font-size: 1.6rem;
+}
+.time{
+  display: flex;
+  color: white;
+  margin: 0 10px;
+  padding: 0 10PX;
+  width: max-content;
+  opacity: 0.4;
+  transition: all 0.5s ease;
+}
+.time:hover{
+  opacity: 1;
+  
+}
+
+/* Existing styles... */
+
+/* Responsive styles */
+@media only screen and (max-width: 1015px) { /* Adjust for tablets and mobile devices */
+  
+}
+
+@media only screen and (max-width: 768px) { /* Adjust for tablets and mobile devices */
+  .box {
+      width: 80%; /* Increase width for smaller screens */
+      height: 30%; /* Adjust height */
+  }
+
+  .box__title {
+      font-size: 5rem; /* Reduce font size */
+  }
+
+  .box__p,
+  .box__info,
+  .box__note {
+      font-size: 1.4rem; /* Adjust font size */
+  }
+
+  .modal__title {
+      font-size: 2.5rem; /* Reduce font size */
+  }
+
+  .modal__text {
+      padding: 0 2rem; /* Reduce padding */
+      font-size: 1.4rem; /* Adjust font size */
+  }
+
+  .modal__btn {
+      font-size: 1.2rem; /* Adjust button font size */
+      padding: 0.8rem 1rem; /* Adjust button padding */
+  }
+
+  .link-1, .link-2 {
+      font-size: 1.6rem; /* Adjust link font size */
+      padding: 0.3rem 1rem; /* Adjust link padding */
+  }
+  #volume-bar{
+    display: none;
+  }
+  .episodes{
+    display: none;
+  }
+  .video-container .progress-controls .progress-bar {
+    width: 82vw;
+   
+  }
+}
+@media only screen and (max-width: 600px) { /* Adjust for mobile devices */
+  
+  .video-container .progress-controls .progress-bar {
+    width: 77vw;
+   
+  }
+  .next{
+    display: none;
+  }
+  
+}
+@media only screen and (max-width: 480px) { /* Adjust for mobile devices */
+  #volume-bar{
+    display: none;
+  }
+  .title{
+    display: none;
+  }
+  .box {
+      width: 95%; /* Use almost full width for very small screens */
+      height: 30%; /* Adjust height */
+  }
+  .next{
+    display: none;
+  }
+  .episodes{
+    display: none;
+  }
+  .box__title {
+      font-size: 4rem; /* Further reduce font size */
+  }
+
+  .modal__text {
+      padding: 0 1rem; /* Reduce padding further */
+  }
+  .link-1{
+    font-size: 0.8rem;
+  }
+  .box__info{
+    font-size: -0.4rem;
+  }
+  .modal__title{
+    font-size: 1.2rem;
+  }
+  .controls {
+    font-size: 10px;
+  }
+  .time-remaining{
+    display: none;
+  }
+  #time-text{
+    font-size: 13px;
+  }
+  .video-container .progress-controls .progress-bar {
+    width: 90vw;
+   
+  }
+  .time{
+    margin: 0 5px;
+    padding: 0 5PX;
+  }
+  .video-container .controls button{
+    
+    min-height: 40px;
+    min-width: 40px;
+  }
 }
